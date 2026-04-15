@@ -1,0 +1,716 @@
+
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edward Benedict Ursal | Senior Web Architect</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=League+Spartan:wght@100;400;700;900&family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brandPrimary: '#40387A',
+                        brandPrimaryLighter: '#4A418C',
+                        accent: '#A095EE',
+                        bgPrimary: '#E2E8F0',
+                        bgSecondary: '#1A1635',
+                        bgTertiary: '#F0F5F8',
+                        textPrimary: '#1E293B',
+                        textSecondary: '#64748B',
+                        textSecondaryLighter: '#94A3B8',
+                    },
+                    fontFamily: {
+                        heading: ['"League Spartan"', 'sans-serif'],
+                        body: ['Inter', 'sans-serif'],
+                        accent: ['Montserrat', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { font-family: 'Inter', sans-serif; color: #1E293B; }
+        h1, h2, h3, h4 { font-family: 'League Spartan', sans-serif; }
+    </style>
+</head>
+<body class="bg-white">
+
+    <nav class="fixed w-full bg-white/95 backdrop-blur-sm z-[100] border-b border-bgPrimary">
+    <div class="max-w-7xl mx-auto px-6 h-20 flex justify-between items-center relative z-[110]">
+        
+        <a href="#about" class="flex items-center space-x-4">
+            <div class="w-12 h-12 bg-brandPrimary rounded-br-xl flex items-center justify-center shadow-lg shadow-brandPrimary/20">
+               <span class="text-white font-heading font-bold text-lg tracking-[0.15em] ml-1 uppercase">EBU</span>
+            </div>
+            
+            <div class="flex flex-col justify-center border-l-2 border-bgPrimary pl-4">
+                <span class="font-heading text-xl font-black text-brandPrimary uppercase leading-none tracking-[0.1em]">
+                    Edward Benedict Ursal
+                </span>
+                <span class="font-accent text-[9px] font-bold text-accent uppercase tracking-[0.3em] mt-1.5 leading-none">
+                    Senior Web Architect
+                </span>
+            </div>
+        </a>
+
+        <div class="hidden md:flex items-center space-x-10">
+            <div class="flex space-x-8 font-accent text-xs font-bold uppercase tracking-[0.2em] text-textSecondary">
+                <a href="#about" class="hover:text-brandPrimary transition-colors">About</a>
+                <a href="#projects" class="hover:text-brandPrimary transition-colors">Projects</a>
+                <a href="#experience" class="hover:text-brandPrimary transition-colors">Experience</a>
+                <a href="#skills" class="hover:text-brandPrimary transition-colors">Skills</a>
+            </div>
+            <a href="#contact" class="font-accent text-xs font-bold uppercase tracking-[0.15em] bg-brandPrimary text-white px-7 py-3.5 rounded-md hover:bg-brandPrimaryLighter transition-all">
+                Work With Me
+            </a>
+        </div>
+
+        <button id="menu-btn" class="md:hidden text-brandPrimary p-2 outline-none relative z-[120]">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 8h16M4 16h16" />
+            </svg>
+        </button>
+    </div>
+
+    <div id="menu-overlay" class="fixed inset-0 bg-black/60 hidden z-[200] backdrop-blur-sm transition-opacity duration-300"></div>
+
+    <div id="mobile-menu" class="fixed top-0 right-0 h-screen w-[85%] max-w-[320px] bg-white z-[210] transform translate-x-full transition-transform duration-300 ease-in-out flex flex-col shadow-2xl">
+        <div class="flex justify-between items-center p-6 border-b border-bgPrimary">
+            <span class="font-heading font-black text-brandPrimary uppercase tracking-widest">Menu</span>
+            <button id="close-btn" class="text-brandPrimary p-2">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+            </button>
+        </div>
+
+        <div class="flex flex-col p-8 space-y-6 font-accent text-base font-bold uppercase tracking-[0.25em] text-textPrimary">
+            <a href="#about" class="mob-link hover:text-accent transition-colors">About</a>
+            <a href="#projects" class="mob-link hover:text-accent transition-colors">Projects</a>
+            <a href="#experience" class="mob-link hover:text-accent transition-colors">Experience</a>
+            <a href="#skills" class="mob-link hover:text-accent transition-colors">Skills</a>
+            
+            <div class="pt-6 border-t border-bgPrimary mt-4">
+                <a href="#contact" class="text-brandPrimary block italic tracking-[0.1em]">Hire Me →</a>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<script>
+    (function() {
+        const menuBtn = document.getElementById('menu-btn');
+        const closeBtn = document.getElementById('close-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const overlay = document.getElementById('menu-overlay');
+        const links = document.querySelectorAll('.mob-link');
+
+        function openMenu() {
+            overlay.classList.remove('hidden');
+            // Timeout to allow hidden removal before opacity transition
+            setTimeout(() => {
+                mobileMenu.classList.remove('translate-x-full');
+            }, 10);
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeMenu() {
+            mobileMenu.classList.add('translate-x-full');
+            setTimeout(() => {
+                overlay.classList.add('hidden');
+            }, 300);
+            document.body.style.overflow = '';
+        }
+
+        menuBtn.addEventListener('click', openMenu);
+        closeBtn.addEventListener('click', closeMenu);
+        overlay.addEventListener('click', closeMenu);
+        links.forEach(link => link.addEventListener('click', closeMenu));
+    })();
+</script>    
+    <main>
+        <section id="about" class="pt-40 pb-24 px-6 bg-white overflow-hidden">
+    <div class="max-w-7xl mx-auto">
+        <div class="flex flex-col lg:flex-row items-start gap-12 lg:gap-20">
+            
+            <div class="w-full lg:w-1/3 flex flex-col items-center lg:items-start order-2 lg:order-1">
+                <div class="relative w-full max-w-[320px]">
+                    <div class="absolute -inset-4 border-2 border-bgPrimary rounded-2xl translate-x-2 translate-y-2 z-0"></div>
+                    
+                    <div class="relative z-10 overflow-hidden rounded-xl shadow-2xl border-4 border-white aspect-[4/5]">
+                        <img src="ebu-cs.jpg" 
+                             alt="Edward Benedict Ursal" 
+                             class="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700 ease-in-out">
+                    </div>
+                    
+                    <div class="absolute -bottom-6 -right-6 bg-brandPrimary p-5 shadow-2xl rounded-lg z-20 border-b-4 border-accent">
+                        <p class="font-heading text-4xl font-black text-white leading-none">12+</p>
+                        <p class="font-accent text-[9px] font-bold text-accent uppercase tracking-widest mt-1">Years Experience</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="w-full lg:w-2/3 order-1 lg:order-2">
+                <div class="mb-10">
+                    <h2 class="font-accent text-3xl md:text-3xl font-black text-brandPrimary uppercase tracking-[0.1em] md:tracking-[0.2em] leading-[1.1] mb-6 block">
+                        Senior WordPress Developer <span class="text-accent">&</span> Full-Stack Problem Solver
+                    </h2>
+                    <div class="h-2 w-32 bg-accent rounded-full"></div>
+                </div>
+                
+                <p class="text-lg md:text-xl text-textSecondary leading-relaxed mb-10 max-w-2xl">
+                    Most agencies have a "WordPress person," but they still struggle with buggy launches, broken integrations, and sites that just don't look right. I close that gap. I am a full-stack developer who can design, program in <strong class="text-brandPrimary font-bold">PHP</strong>, and automate your workflows so your team can stop fighting with technology and start hitting deadlines.
+                </p>
+
+                <h3 class="font-heading text-2xl font-bold text-brandPrimary uppercase tracking-[0.15em] mb-8">
+                    How I help your agency:
+                </h3>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-12 py-8 border-t border-bgPrimary">
+                    
+                    <div class="flex flex-col">
+                        <h4 class="font-heading text-lg font-bold text-brandPrimary uppercase tracking-wider mb-3">
+                            Platform Expert:
+                        </h4>
+                        <p class="text-md text-textSecondary leading-relaxed">
+                            As a former developer and project manager at <strong class="text-brandPrimary font-bold">Themeco</strong> (the makers of <strong class="text-brandPrimary font-bold">Pro</strong> and <strong class="text-brandPrimary font-bold">Cornerstone</strong>), I know <strong class="text-brandPrimary font-bold">WordPress</strong> from the inside out. I don't guess; I know how the code works.
+                        </p>
+                    </div>
+
+                    <div class="flex flex-col">
+                        <h4 class="font-heading text-lg font-bold text-brandPrimary uppercase tracking-wider mb-3">
+                            True Full-Stack:
+                        </h4>
+                        <p class="text-md text-textSecondary leading-relaxed">
+                            I handle everything from pixel-perfect <strong class="text-brandPrimary font-bold">Figma</strong>-to-<strong class="text-brandPrimary font-bold">WordPress</strong> conversions to complex <strong class="text-brandPrimary font-bold">MySQL</strong> database work and custom <strong class="text-brandPrimary font-bold">PHP</strong>.
+                        </p>
+                    </div>
+
+                    <div class="flex flex-col">
+                        <h4 class="font-heading text-lg font-bold text-brandPrimary uppercase tracking-wider mb-3">
+                            Automation:
+                        </h4>
+                        <p class="text-md text-textSecondary leading-relaxed">
+                            I use <strong class="text-brandPrimary font-bold">Make.com</strong> and <strong class="text-brandPrimary font-bold">Zapier</strong> to connect your websites to <strong class="text-brandPrimary font-bold">CRMs</strong> and marketing tools, removing the manual work that slows your team down.
+                        </p>
+                    </div>
+
+                    <div class="flex flex-col">
+                        <h4 class="font-heading text-lg font-bold text-brandPrimary uppercase tracking-wider mb-3">
+                            UX Focus:
+                        </h4>
+                        <p class="text-md text-textSecondary leading-relaxed">
+                            I build with the user in mind. A site shouldn't just look good—it needs to work perfectly for the client and their customers.
+                        </p>
+                    </div>
+
+                </div>
+
+                <div class="mt-8 flex flex-wrap gap-4">
+                    <a href="#projects" class="bg-brandPrimary text-white font-accent text-xs font-bold uppercase tracking-[0.2em] px-10 py-5 rounded-md hover:bg-brandPrimaryLighter transition-all shadow-xl shadow-brandPrimary/20">
+                        View Projects
+                    </a>
+                    <a href="#contact" class="bg-bgTertiary text-brandPrimary font-accent text-xs font-bold uppercase tracking-[0.2em] px-10 py-5 rounded-md hover:bg-bgPrimary transition-all border border-bgPrimary/50">
+                        Work With Me
+                    </a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>        <section id="projects" class="py-24 px-6 bg-bgTertiary">
+    <div class="max-w-7xl mx-auto">
+        
+        <div class="mb-16">
+            <h2 class="font-heading text-4xl md:text-5xl font-black text-brandPrimary uppercase tracking-[0.15em] mb-4">
+                Featured Projects
+            </h2>
+            <div class="h-2 w-24 bg-accent rounded-full"></div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
+            
+            <div class="group bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 border-2 border-transparent hover:border-accent flex flex-col h-full">
+                <div class="aspect-video overflow-hidden bg-gray-100 border-b border-bgPrimary">
+                    <img src="project-tundra.jpg" alt="Tundra Angels" class="w-full h-full object-cover grayscale-[50%] group-hover:grayscale-0 transition-all duration-500">
+                </div>
+                <div class="p-8 flex flex-col flex-grow">
+                    <div class="mb-4">
+                        <span class="font-accent text-md font-black text-accent uppercase tracking-[0.2em]">January – March 2026</span>
+                    </div>
+                    <h3 class="font-heading text-2xl font-black text-brandPrimary uppercase leading-tight tracking-[0.05em] mb-4 group-hover:text-accent transition-colors">
+                        Tundra Angels Website Redesign | Web Development Partner
+                    </h3>
+                    <div class="space-y-4 text-textSecondary text-md leading-relaxed mb-6">
+                        <p><strong>The Problem:</strong> The client’s existing site was "plain" and failed to communicate the company’s value. This created a credibility gap during outreach; the founder had to explain his business from scratch because the site wasn't making a strong first impression.</p>
+                        <p><strong>The Work:</strong> I restructured the site architecture and handled the design phase first to ensure approval before development. I then built the final site in WordPress using the <strong class="text-brandPrimary font-bold">Pro Theme</strong> and <strong class="text-brandPrimary font-bold">Cornerstone</strong> for a high-performance, responsive experience.</p>
+                        <p><strong>The Result:</strong> The founder now confidently uses the site as a tool for outreach. Prospects arrive at meetings with their <strong class="text-brandPrimary font-bold">initial questions already answered</strong> by the site, allowing him to spend his time <strong class="text-brandPrimary font-bold">closing deals</strong> instead of providing basic introductions.</p>
+                    </div>
+                    <div class="mt-auto pt-6 border-t border-bgPrimary flex justify-between items-center">
+                        <span class="text-[10px] font-bold text-textSecondaryLighter uppercase tracking-widest">Design & Development</span>
+                        <a href="https://tundraangels.com" target="_blank" class="text-brandPrimary font-bold text-md hover:underline">Visit Site →</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="group bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 border-2 border-transparent hover:border-accent flex flex-col h-full">
+                <div class="aspect-video overflow-hidden bg-gray-100 border-b border-bgPrimary">
+                    <img src="project-aboundup.jpg" alt="AboundUp" class="w-full h-full object-cover grayscale-[50%] group-hover:grayscale-0 transition-all duration-500">
+                </div>
+                <div class="p-8 flex flex-col flex-grow">
+                    <div class="mb-4">
+                        <span class="font-accent text-md font-black text-accent uppercase tracking-[0.2em]">December 2025</span>
+                    </div>
+                    <h3 class="font-heading text-2xl font-black text-brandPrimary uppercase leading-tight tracking-[0.05em] mb-4 group-hover:text-accent transition-colors">
+                        AboundUp <strong class="italic">Figma</strong> to Cornerstone | Full-Stack Development
+                    </h3>
+                    <div class="space-y-4 text-textSecondary text-md leading-relaxed mb-6">
+                        <p><strong>The Problem:</strong> The "Handoff Gap"—where high-fidelity designs lose their premium feel during technical execution. AboundUp needed their <strong class="text-brandPrimary font-bold">ManyPixels Figma</strong> mockups translated into a production-ready site without losing the subtle spacing and typography that defined their new brand.</p>
+                        <p><strong>The Work:</strong> I performed a 1:1 technical implementation using a 100% native <strong class="text-brandPrimary font-bold">Pro/Cornerstone</strong> workflow. This included engineering a custom container system to solve the <strong class="text-brandPrimary font-bold">"Symmetry Trap,"</strong> ensuring disparate partner logos appeared visually balanced and uniform across all devices.</p>
+                        <p><strong>The Result:</strong> I achieved <strong class="text-brandPrimary font-bold">95%+ first-pass accuracy</strong>, delivering production-ready pages in just <strong class="text-brandPrimary font-bold">1 to 2 days</strong> with <strong class="text-brandPrimary font-bold">zero technical debt</strong>. This speed allowed the agency to move from design approval to staging immediately, completely removing the traditional development bottleneck.</p>
+                    </div>
+                    <div class="mt-auto pt-6 border-t border-bgPrimary flex justify-between items-center">
+                        <span class="text-[10px] font-bold text-textSecondaryLighter uppercase tracking-widest">Figma-to-WordPress</span>
+                        <a href="https://cornerstonesmith.com/case-studies/aboundup/" class="text-brandPrimary font-bold text-md hover:underline" target="_blank">Case Study →</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="group bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 border-2 border-transparent hover:border-accent flex flex-col h-full">
+                <div class="aspect-video overflow-hidden bg-gray-100 border-b border-bgPrimary">
+                    <img src="project-cornerstone.jpg" alt="Cornerstone Smith" class="w-full h-full object-cover grayscale-[50%] group-hover:grayscale-0 transition-all duration-500">
+                </div>
+                <div class="p-8 flex flex-col flex-grow">
+                    <div class="mb-4">
+                        <span class="font-accent text-md font-black text-accent uppercase tracking-[0.2em]">January – February 2026</span>
+                    </div>
+                    <h3 class="font-heading text-2xl font-black text-brandPrimary uppercase leading-tight tracking-[0.05em] mb-4 group-hover:text-accent transition-colors">
+                        Cornerstone Smith | Personal Brand & Service Launch
+                    </h3>
+                    <div class="space-y-4 text-textSecondary text-md leading-relaxed mb-6">
+                        <p><strong>The Project:</strong> I designed and developed this site to host my productized service, where I convert <strong class="text-brandPrimary font-bold">Figma</strong> mockups to WordPress pages for a flat monthly fee.</p>
+                        <p><strong>The Execution:</strong> I used a combination of AI-assisted design and manual development via the <strong class="text-brandPrimary font-bold">Cornerstone Page Builder</strong>. The site serves as a <strong class="text-brandPrimary font-bold">live demonstration</strong> of my ability to build clean, fast, and professional interfaces that solve specific business needs.</p>
+                    </div>
+                    <div class="mt-auto pt-6 border-t border-bgPrimary flex justify-between items-center">
+                        <span class="text-[10px] font-bold text-textSecondaryLighter uppercase tracking-widest">Design & Development</span>
+                        <a href="https://cornerstonesmith.com/" target="_blank" class="text-brandPrimary font-bold text-md hover:underline">Visit Site →</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="group bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 border-2 border-transparent hover:border-accent flex flex-col h-full">
+                <div class="aspect-video overflow-hidden bg-gray-100 border-b border-bgPrimary">
+                    <img src="project-kara.jpg" alt="Kara Ryska" class="w-full h-full object-cover grayscale-[50%] group-hover:grayscale-0 transition-all duration-500">
+                </div>
+                <div class="p-8 flex flex-col flex-grow">
+                    <div class="mb-4">
+                        <span class="font-accent text-md font-black text-accent uppercase tracking-[0.2em]">August 2025</span>
+                    </div>
+                    <h3 class="font-heading text-2xl font-black text-brandPrimary uppercase leading-tight tracking-[0.05em] mb-4 group-hover:text-accent transition-colors">
+                        Kara Ryska Pathway to Peace | Landing Page Design & Development
+                    </h3>
+                    <div class="space-y-4 text-textSecondary text-md leading-relaxed mb-6">
+                        <p><strong>The Goal:</strong> The client needed a high-converting landing page for a <strong class="text-brandPrimary font-bold">September 2025 launch</strong> of her coaching program for moms with special needs children.</p>
+                        <p><strong>The Work:</strong> Based on the client's copy, I designed the mockup for her approval and then handled the full development using the <strong class="text-brandPrimary font-bold">Cornerstone</strong> page builder. I ensured the page was fully responsive and ready for the launch deadline, providing a <strong class="text-brandPrimary font-bold">frictionless path</strong> for her students to enroll.</p>
+                    </div>
+                    <div class="mt-auto pt-6 border-t border-bgPrimary flex justify-between items-center">
+                        <span class="text-[10px] font-bold text-textSecondaryLighter uppercase tracking-widest">Design & Development</span>
+                        <a href="https://www.kararyska.com/pathwaytopeace/" target="_blank" class="text-brandPrimary font-bold text-md hover:underline">Visit Site →</a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>        <section id="experience" class="py-24 px-6 relative overflow-hidden bg-[#1a0b2e]">
+    <div class="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none">
+        <div class="absolute -top-24 -left-24 w-[600px] h-[600px] bg-brandPrimary/20 rounded-full blur-[140px]"></div>
+        <div class="absolute bottom-0 right-0 w-[500px] h-[500px] bg-accent/10 rounded-full blur-[150px]"></div>
+    </div>
+
+    <div class="max-w-4xl mx-auto relative z-10">
+        
+        <div class="mb-20 text-center">
+            <h2 class="font-heading text-4xl md:text-5xl font-black text-white uppercase tracking-[0.15em] mb-4">
+                Employment History
+            </h2>
+            <div class="h-1.5 w-24 bg-accent rounded-full mx-auto"></div>
+        </div>
+
+        <div class="space-y-12">
+            
+            <div class="group bg-white rounded-2xl shadow-2xl overflow-hidden border-l-[6px] border-accent transition-transform hover:scale-[1.01] duration-300">
+                <div class="p-8 md:p-12">
+                    <div class="flex flex-col md:flex-row md:items-start justify-between mb-8 gap-6">
+                        <div>
+                            <h3 class="font-heading text-2xl md:text-3xl font-black text-brandPrimary uppercase tracking-[0.05em]">
+                                AboundUp | Dev Manager
+                            </h3>
+                            <span class="font-accent text-sm font-black text-accent uppercase tracking-[0.2em] block mt-1">
+                                April 2021 – October 2025
+                            </span>
+                        </div>
+                        <div class="flex-shrink-0 pt-2">
+                            <img src="AboundUp-Logo.png" alt="AboundUp Logo" class="h-6 w-auto object-contain grayscale opacity-40 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-500">
+                        </div>
+                    </div>
+
+                    <p class="text-textSecondary leading-relaxed italic mb-10 text-lg border-b border-bgPrimary pb-8">
+                        As the first employee of this Baltimore-based agency, I moved from project management to leading the entire development department. I worked directly with the founder to bridge the gap between business strategy and technical execution.
+                    </p>
+                    
+                    <div class="grid grid-cols-1 gap-10">
+                        <div>
+                            <h4 class="font-heading text-lg font-bold text-brandPrimary uppercase tracking-[0.15em] mb-3">
+                                Technical Strategy
+                            </h4>
+                            <p class="text-textSecondary leading-relaxed">
+                                I worked hand-in-hand with my boss, Austin Abell, to evaluate and recommend the best technology stacks. For <strong class="text-brandPrimary font-bold">Top Speed Golf</strong>, I acted as a technical consultant to ensure their architecture could handle <strong class="text-brandPrimary font-bold">high-traffic demands</strong>.
+                            </p>
+                        </div>
+                        <div>
+                            <h4 class="font-heading text-lg font-bold text-brandPrimary uppercase tracking-[0.15em] mb-3">
+                                Full-Stack Implementation
+                            </h4>
+                            <p class="text-textSecondary leading-relaxed">
+                                While I managed teams and created the <strong class="text-brandPrimary font-bold">SOPs that systematized our work</strong>, I remained a hands-on developer and designer, regularly handling high-fidelity design work and complex <strong class="text-brandPrimary font-bold">Cornerstone builds</strong>.
+                            </p>
+                        </div>
+                        <div>
+                            <h4 class="font-heading text-lg font-bold text-brandPrimary uppercase tracking-[0.15em] mb-3">
+                                Complex Integrations
+                            </h4>
+                            <p class="text-textSecondary leading-relaxed">
+                                I specialized in solving problems standard page builders couldn't, including engineering <strong class="text-brandPrimary font-bold">custom search functionality via the Lodgify API</strong> and managing advanced automations through <strong class="text-brandPrimary font-bold">Make.com, Zapier, and SamCart</strong>.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="group bg-white rounded-2xl shadow-2xl overflow-hidden border-l-[6px] border-brandPrimary transition-transform hover:scale-[1.01] duration-300">
+                <div class="p-8 md:p-12">
+                    <div class="flex flex-col md:flex-row md:items-start justify-between mb-8 gap-6">
+                        <div>
+                            <h3 class="font-heading text-2xl md:text-3xl font-black text-brandPrimary uppercase tracking-[0.05em]">
+                                Themeco | Developer & PM
+                            </h3>
+                            <span class="font-accent text-sm font-black text-accent uppercase tracking-[0.2em] block mt-1">
+                                January 2017 – February 2021
+                            </span>
+                        </div>
+                        <div class="flex-shrink-0 pt-2">
+                            <img src="tc-logo.png" alt="Themeco Logo" class="h-6 w-auto object-contain grayscale opacity-40 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-500">
+                        </div>
+                    </div>
+
+                    <p class="text-textSecondary leading-relaxed italic mb-10 text-lg border-b border-bgPrimary pb-8">
+                        Working for the company that created the X and Pro themes, I served as a technical authority for their custom development division.
+                    </p>
+                    
+                    <div class="grid grid-cols-1 gap-10">
+                        <div>
+                            <h4 class="font-heading text-lg font-bold text-brandPrimary uppercase tracking-[0.15em] mb-3">
+                                Platform Mastery
+                            </h4>
+                            <p class="text-textSecondary leading-relaxed">
+                                Because I was part of the team that <strong class="text-brandPrimary font-bold">wrote the official documentation for the Pro theme</strong>, I have an <strong class="text-brandPrimary font-bold">"insider" mastery</strong> of the platform’s architecture, handling custom PHP development for a global client base.
+                            </p>
+                        </div>
+                        <div>
+                            <h4 class="font-heading text-lg font-bold text-brandPrimary uppercase tracking-[0.15em] mb-3">
+                                Leadership & Support
+                            </h4>
+                            <p class="text-textSecondary leading-relaxed">
+                                I led developer teams and managed client interactions. During major version launches, I provided high-level technical support to ensure stability and performance for <strong class="text-brandPrimary font-bold">thousands of users worldwide</strong>.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-2xl shadow-2xl overflow-hidden border-l-[6px] border-accent/40 transition-transform hover:scale-[1.01] duration-300">
+                <div class="p-8 md:p-12">
+                    <div class="mb-8">
+                        <h3 class="font-heading text-2xl md:text-3xl font-black text-brandPrimary uppercase tracking-[0.05em]">
+                            Freelance WP Development
+                        </h3>
+                        <span class="font-accent text-sm font-black text-accent uppercase tracking-[0.2em] block mt-1">
+                            June 2015 – Present
+                        </span>
+                    </div>
+
+                    <p class="text-textSecondary leading-relaxed italic mb-10 text-lg border-b border-bgPrimary pb-8">
+                        Over the past decade, I have served as a recurring technical partner for agencies and high-level copywriters. I provide the technical reliability needed to launch complex projects without "hand-holding."
+                    </p>
+                    
+                    <div class="grid grid-cols-1 gap-10">
+                        <div>
+                            <h4 class="font-heading text-lg font-bold text-brandPrimary uppercase tracking-[0.15em] mb-3">
+                                Platform Versatility
+                            </h4>
+                            <p class="text-textSecondary leading-relaxed">
+                                While WordPress is my "bread and butter," I have deep experience working across nearly every major builder, including <strong class="text-brandPrimary font-bold">Elementor, Divi, Wix, Squarespace, and GoDaddy</strong>.
+                            </p>
+                        </div>
+                        <div>
+                            <h4 class="font-heading text-lg font-bold text-brandPrimary uppercase tracking-[0.15em] mb-3">
+                                Reliable Results
+                            </h4>
+                            <p class="text-textSecondary leading-relaxed">
+                                I specialize in clean builds for clients like <strong class="text-brandPrimary font-bold">Susan Greene Copywriter</strong> and <strong class="text-brandPrimary font-bold">Condo Hotel Center</strong>, focusing on site speed, data integrity, and creating a frictionless user experience.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>        <section id="skills" class="py-24 px-6 relative overflow-hidden bg-[#130721]">
+    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] bg-brandPrimary/25 rounded-full blur-[160px] pointer-events-none"></div>
+
+    <div class="max-w-7xl mx-auto relative z-10">
+        
+        <div class="mb-20">
+            <h2 class="font-heading text-4xl md:text-5xl font-black text-white uppercase tracking-[0.15em] mb-4">
+                Technical Skills
+            </h2>
+            <div class="h-1.5 w-24 bg-accent rounded-full"></div>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+            
+            <div class="lg:col-span-8 space-y-8">
+                
+                <div class="bg-white/5 backdrop-blur-md rounded-2xl p-8 border border-white/10">
+                    <div class="flex items-center justify-between mb-8">
+                        <h3 class="font-heading text-xl font-black text-accent uppercase tracking-widest">WP Architecture & Design</h3>
+                        <span class="text-[10px] font-black bg-accent text-[#130721] px-2 py-1 uppercase">Primary Mastery</span>
+                    </div>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
+                        <div>
+                            <h4 class="text-white/40 text-[14px] font-black uppercase tracking-[0.2em] mb-4">Themes & Builders</h4>
+                            <ul class="space-y-3 text-white/90 text-sm">
+                                <li><strong class="text-white">Pro & X Theme Specialist</strong> (Expert Level)</li>
+                                <li>Cornerstone Page Builder (Expert Level)</li>
+                                <li>Figma to WordPress (1:1 High-Fidelity)</li>
+                                <li>Elementor & WooCommerce Customization</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4 class="text-white/40 text-[14px] font-black uppercase tracking-[0.2em] mb-4">Advanced Ecosystem</h4>
+                            <ul class="space-y-3 text-white/90 text-sm">
+                                <li>ACF (Advanced Custom Fields)</li>
+                                <li>Loopers & Providers (Dynamic Data)</li>
+                                <li>Gravity Forms & OptinMonster</li>
+                                <li>MemberMouse & Member Architectures</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="mt-8 pt-6 border-t border-white/5 flex flex-wrap gap-3">
+                        <span class="text-[11px] font-bold text-white/30 uppercase tracking-widest mr-2">Design Tools:</span>
+                        <span class="text-white/70 text-xs font-bold uppercase">Figma • Photoshop • Photopea • Canva</span>
+                    </div>
+                </div>
+
+                <div class="bg-white/5 backdrop-blur-md rounded-2xl p-8 border border-white/10">
+                    <h3 class="font-heading text-xl font-black text-accent uppercase tracking-widest mb-8">Systems & Infrastructure</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
+                        <div>
+                            <h4 class="text-white/40 text-[14px] font-black uppercase tracking-[0.2em] mb-4">Automation & CRM</h4>
+                            <ul class="space-y-3 text-white/90 text-sm">
+                                <li>Make.com (Integromat) & Zapier</li>
+                                <li>HubSpot Integration & Data Bridging</li>
+                                <li>API Integrations & Custom Webhooks</li>
+                                <li>Automated Data Mapping</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4 class="text-white/40 text-[14px] font-black uppercase tracking-[0.2em] mb-4">Infrastructure & Performance</h4>
+                            <ul class="space-y-3 text-white/90 text-sm">
+                                <li>Kinsta & Cloudways Management</li>
+                                <li>WP Rocket & WPMUDev Suite</li>
+                                <li>Technical Troubleshooting & Migrations</li>
+                                <li>Staging & Server Configurations</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="lg:col-span-4 space-y-8">
+                
+                <div class="bg-brandPrimary/10 backdrop-blur-md rounded-2xl p-8 border border-brandPrimary/30">
+                    <h3 class="font-heading text-lg font-black text-white uppercase tracking-widest mb-6">Core Stack</h3>
+                    <div class="space-y-4">
+                        <div class="flex justify-between items-center">
+                            <span class="text-white/80 text-sm font-bold">PHP & MySQL</span>
+                            <span class="h-1 w-12 bg-accent rounded-full"></span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="text-white/80 text-sm font-bold">HTML5 & CSS3</span>
+                            <span class="h-1 w-12 bg-accent rounded-full"></span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="text-white/80 text-sm font-bold">JS & JQuery</span>
+                            <span class="h-1 w-12 bg-accent rounded-full"></span>
+                        </div>
+                        <div class="flex justify-between items-center border-t border-white/10 pt-4 mt-4">
+                            <span class="text-white/50 text-[10px] uppercase font-black">Tailwind • Bootstrap • Git</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white/5 backdrop-blur-md rounded-2xl p-8 border border-white/10">
+                    <h3 class="font-heading text-lg font-black text-accent uppercase tracking-widest mb-6">AI Efficiency</h3>
+                    <ul class="space-y-3 text-white/70 text-[14px] leading-relaxed">
+                        <li><strong class="text-white">Gemini / ChatGPT / Copilot:</strong> Prompt engineering for 3x dev speed.</li>
+                        <li><strong class="text-white">AI Design:</strong> UXPilot & AI-driven prototyping.</li>
+                    </ul>
+                </div>
+
+                <div class="bg-white/5 backdrop-blur-md rounded-2xl p-8 border border-white/10">
+                    <h3 class="font-heading text-lg font-black text-accent uppercase tracking-widest mb-6">Revenue Tech</h3>
+                    <ul class="space-y-4 text-white/80 text-sm">
+                        <li>CheckoutChamp & SamCart</li>
+                        <li>Mailchimp & ActiveCampaign</li>
+                        <li>BeePro Template Development</li>
+                        <li class="pt-2 italic text-white/40 text-[12px]">Webflow • Beehiiv • Wix • Squarespace</li>
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="mt-12 py-6 border-t border-white/5 text-center">
+            <span class="text-white/50 text-[14px] font-black uppercase tracking-[0.25em]">
+                Not Just a Coder: Technical Strategy and Implementation for High-Stakes Projects
+            </span>
+        </div>
+    </div>
+</section>        <section id="contact" class="py-24 px-6 relative bg-[#f4f4f5]">
+    <div class="absolute inset-0 opacity-[0.03] pointer-events-none" style="background-image: url('https://www.transparenttextures.com/patterns/cubes.png');"></div>
+
+    <div class="max-w-6xl mx-auto relative z-10">
+        
+        <div class="mb-16 text-center">
+            <h2 class="font-heading text-4xl md:text-5xl font-black text-brandPrimary uppercase tracking-[0.15em] mb-4">
+                Work With Me
+            </h2>
+            <div class="h-1.5 w-24 bg-accent rounded-full mx-auto"></div>
+            <p class="mt-6 text-textSecondary font-accent uppercase tracking-widest text-sm">Choose the engagement model that fits your agency's scale.</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-stretch">
+            
+            <div class="group bg-white rounded-3xl p-8 md:p-12 shadow-[0_20px_50px_rgba(0,0,0,0.05)] border border-bgPrimary transition-all duration-300 hover:shadow-[0_30px_60px_rgba(0,0,0,0.1)] flex flex-col">
+                <div class="mb-10">
+                    <span class="text-accent font-black text-xs uppercase tracking-[0.3em] block mb-4">High-Volume Pipeline</span>
+                    <h3 class="font-heading text-3xl md:text-4xl font-black text-brandPrimary uppercase tracking-[0.1em] leading-tight">
+                        Unlimited Figma to Cornerstone
+                    </h3>
+                </div>
+                
+                <div class="flex-grow">
+                    <p class="text-textSecondary leading-relaxed mb-8 text-lg">
+                        The ultimate white-label solution for design agencies. Send your Figma mockups and get pixel-perfect, native Cornerstone builds back—reliably, at scale, and for a fixed monthly rate.
+                    </p>
+
+                    <ul class="space-y-4 mb-10 text-sm font-bold text-brandPrimary/80">
+                        <li class="flex items-center"><span class="text-accent mr-3">✓</span> 100% Native Architecture</li>
+                        <li class="flex items-center"><span class="text-accent mr-3">✓</span> Zero Technical Debt</li>
+                        <li class="flex items-center"><span class="text-accent mr-3">✓</span> White-Label Ghost Delivery</li>
+                    </ul>
+                </div>
+
+                <div class="mt-auto pt-6">
+                    <a href="https://cornerstonesmith.com" target="_blank" class="block text-center bg-brandPrimary text-white font-heading font-black py-5 uppercase tracking-[0.2em] rounded-xl hover:bg-accent hover:text-brandPrimary transition-all duration-300 shadow-lg">
+                        View Subscription Plans
+                    </a>
+                </div>
+            </div>
+
+            <div class="group bg-brandPrimary rounded-3xl p-8 md:p-12 shadow-2xl transition-all duration-300 hover:scale-[1.02] flex flex-col border border-white/5">
+                <div class="mb-10">
+                    <span class="text-accent font-black text-xs uppercase tracking-[0.3em] block mb-4">Technical Leadership</span>
+                    <h3 class="font-heading text-3xl md:text-4xl font-black text-white uppercase tracking-[0.1em] leading-tight">
+                        Senior Developer & Partner
+                    </h3>
+                </div>
+                
+                <div class="flex-grow">
+                    <div class="flex items-baseline gap-2 mb-8">
+                        <span class="text-white text-4xl font-black">$40</span>
+                        <span class="text-white/40 font-bold uppercase tracking-widest text-sm">/ Per Hour</span>
+                    </div>
+
+                    <p class="text-white/90 leading-relaxed mb-8 text-lg">
+                        The "Head of Development" solution. Tap into my full 10-year mastery—from custom PHP and server infrastructure to complex automations and team leadership. This is for agencies that need a technical partner, not just a builder.
+                    </p>
+
+                    <ul class="space-y-4 mb-10 text-sm font-bold text-white/90">
+                        <li class="flex items-center"><span class="text-accent mr-3">✓</span> Head of WordPress Strategy</li>
+                        <li class="flex items-center"><span class="text-accent mr-3">✓</span> Complex API & System Logic</li>
+                        <li class="flex items-center"><span class="text-accent mr-3">✓</span> Total Platform Infrastructure</li>
+                    </ul>
+                </div>
+
+                <div class="mt-auto pt-6">
+                    <a href="mailto:benursal@cornerstonesmith.com?subject=Inquiry: Technical Partnership / Senior Developer" class="block text-center bg-accent text-white font-heading font-black py-5 uppercase tracking-[0.2em] rounded-xl hover:bg-white transition-all duration-300 shadow-lg">
+                        Send Me An Email
+                    </a>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="mt-16 text-center">
+            <p class="text-textSecondary/40 text-[10px] font-black uppercase tracking-[0.4em]">
+                Direct Access • No Agency Middlemen • 10+ Years Experience
+            </p>
+        </div>
+    </div>
+</section>    </main>
+
+    <footer class="bg-[#f8f9fa] pt-24 pb-12 px-6 relative overflow-hidden">
+    <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-brandPrimary/5 rounded-full blur-[120px] pointer-events-none"></div>
+
+    <div class="max-w-4xl mx-auto relative z-10">
+        <div class="text-center">
+            
+            <h2 class="font-heading text-3xl md:text-4xl font-black text-brandPrimary uppercase tracking-[0.2em] mb-4">
+                Edward Benedict Ursal
+            </h2>
+            <p class="font-accent text-accent text-sm font-black uppercase tracking-[0.3em] mb-8">
+                Senior Web Architect
+            </p>
+            
+            <div class="flex flex-col items-center gap-6 mb-16">
+                <a href="mailto:benursal@cornerstonesmith.com" class="text-textSecondary hover:text-brandPrimary text-md font-medium transition-colors duration-300 border-b border-transparent hover:border-brandPrimary pb-1">
+                    benursal@cornerstonesmith.com
+                </a>
+                
+                <div class="flex items-center gap-8">
+                    <a href="https://www.linkedin.com/in/edward-benedict-ursal-cornerstonesmith/" target="_blank" class="flex items-center gap-2 text-textSecondary hover:text-brandPrimary transition-all">
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+                        <span class="text-xs font-black uppercase tracking-widest">LinkedIn</span>
+                    </a>
+                    
+                    <div class="flex items-center gap-2 text-textSecondary/60 cursor-default">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+                        <span class="text-xs font-black uppercase tracking-widest">Talisay City, Negros Occidental</span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</footer>
+</body>
+</html>
